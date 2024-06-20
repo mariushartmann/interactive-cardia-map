@@ -1,4 +1,4 @@
-import "./map.scss";
+import "./Map.scss";
 import { ores } from "../../data/index";
 import { useCallback } from "react";
 
