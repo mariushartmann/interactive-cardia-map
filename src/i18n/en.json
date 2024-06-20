@@ -1,0 +1,32 @@
+{
+  "tab_objectives": "Objectives",
+  "tab_details": "Details",
+  "ores": {
+    "adamantite": "Adamantite",
+    "aquamarine": "Aquamarine",
+    "argentum": "Argentum",
+    "copper": "Copper",
+    "crusium": "Crusium",
+    "crystalwing": "Crystalwing",
+    "duckharukon": "Duckharukon",
+    "dureline": "Dureline",
+    "emeralnd": "Emeralnd",
+    "fairyswing": "Fairyswing",
+    "hearthstone": "Hearthstone",
+    "iron": "Iron",
+    "lifestone": "Lifestone",
+    "manastone": "Manastone",
+    "mithril": "Mithril",
+    "moonlightstone": "Moonlightstone",
+    "obsidian": "Obsidian",
+    "opal": "Opal",
+    "pearl": "Pearl",
+    "regency": "Regency",
+    "retion": "Retion",
+    "ruby": "Ruby",
+    "runecarore": "Runecarore",
+    "sapphire": "Sapphire",
+    "spiritstone": "Spiritstone",
+    "thunderboltstone": "Thunderboltstone"
+  }
+}
