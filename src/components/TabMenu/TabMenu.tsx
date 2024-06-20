@@ -13,15 +13,33 @@ import {
   Typography,
 } from "@mui/joy";
 import { useTranslation } from "react-i18next";
-import { oreIdentifier } from "../../data/model";
-import { ores } from "../../data";
+import { itemIdentifier, oreIdentifier } from "../../data/model";
+import { ores, items } from "../../data";
 
 export const TabMenu = () => {
   const { t } = useTranslation();
-  const { visibleOres, setVisibleOres, setVisibleOresAll, setVisibleOresNone } =
-    useAppStore();
+  const {
+    visibleOres,
+    setVisibleOres,
+    setVisibleOresAll,
+    setVisibleOresNone,
+    visibleItems,
+    setVisibleItems,
+    setVisibleItemsAll,
+    setVisibleItemsNone,
+  } = useAppStore();
 
-  const updateVisibility = useCallback(
+  const showAll = () => {
+    setVisibleOresAll();
+    setVisibleItemsAll();
+  };
+
+  const showNone = () => {
+    setVisibleOresNone();
+    setVisibleItemsNone();
+  };
+
+  const updateVisibilityOres = useCallback(
     (id: string, value: boolean) => {
       const index = visibleOres.indexOf(id);
       if (value) {
@@ -32,6 +50,19 @@ export const TabMenu = () => {
       if (index !== -1) setVisibleOres([...visibleOres]);
     },
     [visibleOres, setVisibleOres]
+  );
+
+  const updateVisibilityItems = useCallback(
+    (id: string, value: boolean) => {
+      const index = visibleItems.indexOf(id);
+      if (value) {
+        if (index === -1) setVisibleItems([...visibleItems, id]);
+        return;
+      }
+      visibleItems.splice(index, 1);
+      if (index !== -1) setVisibleItems([...visibleItems]);
+    },
+    [visibleItems, setVisibleItems]
   );
 
   const renderOres = useCallback(() => {
@@ -51,7 +82,7 @@ export const TabMenu = () => {
                 <Checkbox
                   label={t(`ores.${ore}`)}
                   checked={data?.data === null ? false : isVisible}
-                  onChange={(e) => updateVisibility(ore, e.target.checked)}
+                  onChange={(e) => updateVisibilityOres(ore, e.target.checked)}
                   disabled={data?.data === null}
                   variant="outlined"
                 />
@@ -84,7 +115,38 @@ export const TabMenu = () => {
         </Box>
       </>
     );
-  }, [visibleOres, t, updateVisibility]);
+  }, [visibleOres, t, updateVisibilityOres]);
+
+  const renderItems = useCallback(() => {
+    return (
+      <>
+        <Typography typography="h3">Items</Typography>
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          {itemIdentifier.map((item) => {
+            const isVisible = visibleItems.indexOf(item) !== -1;
+            const data = items.find((x) => x.ids.includes(item));
+
+            return (
+              <Box
+                key={item}
+                sx={{ display: "flex", py: 0.25, mb: 0.25, gap: 2 }}
+              >
+                <Checkbox
+                  label={t(`items.${item}`)}
+                  checked={data?.data === null ? false : isVisible}
+                  onChange={(e) =>
+                    updateVisibilityItems(item, e.target.checked)
+                  }
+                  disabled={data?.data === null}
+                  variant="outlined"
+                />
+              </Box>
+            );
+          })}
+        </Box>
+      </>
+    );
+  }, [visibleItems, t, updateVisibilityItems]);
 
   return (
     <Card
@@ -92,10 +154,10 @@ export const TabMenu = () => {
         display: "flex",
         flexDirection: "column",
         width: "25%",
-        minWidth: 270,
+        minWidth: 300,
       }}
     >
-      <Tabs sx={{ height: "100%" }}>
+      <Tabs sx={{ height: "100%", overflow: "hidden" }}>
         <TabList>
           <Tab variant="plain" color="primary">
             {t("tab_objectives")}
@@ -104,14 +166,37 @@ export const TabMenu = () => {
             {t("tab_details")}
           </Tab>
         </TabList>
-        <TabPanel value={0}>Panel 1</TabPanel>
-        <TabPanel value={1} sx={{ display: "flex", flexDirection: "column" }}>
-          <Box sx={{ flexGrow: 1, overflowY: "auto" }}>{renderOres()}</Box>
-          <Box sx={{ display: "flex", gap: 1, mt: "auto" }}>
-            <Button onClick={setVisibleOresAll}>All</Button>
-            <Button onClick={setVisibleOresNone}>None</Button>
-          </Box>
+        <TabPanel
+          value={0}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            overflowY: "auto",
+            padding: 0,
+          }}
+        >
+          Panel 1
         </TabPanel>
+        <TabPanel
+          value={1}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            overflowY: "auto",
+            p: 0,
+            pl: 2,
+            my: 2,
+          }}
+        >
+          {renderOres()}
+          {renderItems()}
+        </TabPanel>
+        <Box sx={{ display: "flex", gap: 1, mt: "auto" }}>
+          <Button onClick={showAll}>All</Button>
+          <Button onClick={showNone}>None</Button>
+        </Box>
       </Tabs>
     </Card>
   );

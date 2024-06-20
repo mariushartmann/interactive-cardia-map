@@ -1,5 +1,3 @@
-import { TypeOfExpression } from "typescript";
-
 export type Data = DataItem[];
 
 export type DataItem = {
@@ -41,7 +39,6 @@ export const oreIdentifier = [
   "spiritstone",
   "thunderboltstone",
 ] as const;
-type OreIdentifier = (typeof oreIdentifier)[number];
 
 export const plantIdentifier = [
   "anise",
@@ -60,7 +57,21 @@ export const plantIdentifier = [
   "rosemary",
   "thyme",
 ] as const;
-export type PlantIdentifier = (typeof plantIdentifier)[number];
 
-const allIdentifier = [...oreIdentifier, ...plantIdentifier] as const;
+export const itemIdentifier = [
+  "letter_of_a_soldier",
+  "luggage_of_a_soldier",
+  "cardia_note",
+  "weapon_of_the_gods",
+  "book_of_time",
+  "adventure_notice",
+  "mystic_cube",
+  "flower_of_darkness",
+] as const;
+
+const allIdentifier = [
+  ...oreIdentifier,
+  ...plantIdentifier,
+  ...itemIdentifier,
+] as const;
 type AllIdentifier = (typeof allIdentifier)[number][];

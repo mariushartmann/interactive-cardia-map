@@ -28,5 +28,15 @@
     "sapphire": "Sapphire",
     "spiritstone": "Spiritstone",
     "thunderboltstone": "Thunderboltstone"
+  },
+  "items": {
+    "letter_of_a_soldier": "Letter of a Soldier",
+    "luggage_of_a_soldier": "Luggage of a Soldier",
+    "cardia_note": "Cardia Note",
+    "weapon_of_the_gods": "Weapon of the Gods",
+    "book_of_time": "Book of Time",
+    "adventure_notice": "Adventure Notice",
+    "mystic_cube": "Mystic Cube",
+    "flower_of_darkness": "Flower of Darkness"
   }
 }

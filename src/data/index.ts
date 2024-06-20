@@ -1,1 +1,2 @@
-export * from "./ores"
+export * from "./items";
+export * from "./ores";
