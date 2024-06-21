@@ -256,7 +256,8 @@ export const TabMenu = () => {
             flexDirection: "column",
             gap: 2,
             overflowY: "auto",
-            padding: 0,
+            p: 0,
+            my: 2,
           }}
         >
           Panel 1
