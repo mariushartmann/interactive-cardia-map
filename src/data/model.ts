@@ -61,33 +61,33 @@ export const plantIdentifier = [
 export type PlantIdentifier = (typeof plantIdentifier)[number];
 
 export const itemIdentifier = [
+  "adventure_notice",
+  "book_of_time",
+  "cardia_note",
+  "flower_of_darkness",
   "letter_of_a_soldier",
   "luggage_of_a_soldier",
-  "cardia_note",
-  "weapon_of_the_gods",
-  "book_of_time",
-  "adventure_notice",
   "mystic_cube",
-  "flower_of_darkness",
+  "weapon_of_the_gods",
 ] as const;
 export type ItemIdentifier = (typeof itemIdentifier)[number];
 
 export const bossIdentifier = [
-  "giant_fire_mage",
-  "giant_cursed_warrior",
-  "river_mutant",
-  "giant_kravog",
-  "forest_dragon",
-  "giant_minotaurus",
-  "cardia_mermaid",
   "cardia_dragon",
+  "cardia_mermaid",
+  "cardia_yeti",
+  "dark_jin",
+  "forest_dragon",
+  "giant_cursed_warrior",
+  "giant_fire_mage",
+  "giant_kravog",
+  "giant_minotaurus",
+  "giant_snow_dragon",
+  "island_death",
+  "river_mutant",
   "snow_deamon",
   "white_tiger_girl",
   "winfred",
-  "giant_snow_dragon",
-  "cardia_yeti",
-  "island_death",
-  "dark_jin",
 ] as const;
 export type BossIdentifier = (typeof bossIdentifier)[number];
 
