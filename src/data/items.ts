@@ -59,6 +59,4 @@ const items: Data = [
   },
 ];
 
-items.sort((a, b) => (a.ids > b.ids ? 1 : -1));
-
 export { items };

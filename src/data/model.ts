@@ -1,14 +1,14 @@
 export type Data = DataItem[];
 
 export type DataItem = {
-  ids: AllIdentifier;
+  ids: AllIdentifier[];
   color: string;
-  itemType: ItemType;
+  itemType: DataType;
   locationType: LocationType;
   data: string | null;
 };
 
-type ItemType = "plant" | "ore" | "item";
+export type DataType = "plant" | "ore" | "item" | "boss" | "npc";
 type LocationType = "point" | "area";
 
 export const oreIdentifier = [
@@ -39,6 +39,7 @@ export const oreIdentifier = [
   "spiritstone",
   "thunderboltstone",
 ] as const;
+export type OreIdentifier = (typeof oreIdentifier)[number];
 
 export const plantIdentifier = [
   "anise",
@@ -57,6 +58,7 @@ export const plantIdentifier = [
   "rosemary",
   "thyme",
 ] as const;
+export type PlantIdentifier = (typeof plantIdentifier)[number];
 
 export const itemIdentifier = [
   "letter_of_a_soldier",
@@ -68,10 +70,31 @@ export const itemIdentifier = [
   "mystic_cube",
   "flower_of_darkness",
 ] as const;
+export type ItemIdentifier = (typeof itemIdentifier)[number];
 
-const allIdentifier = [
+export const bossIdentifier = [
+  "giant_fire_mage",
+  "giant_cursed_warrior",
+  "river_mutant",
+  "giant_kravog",
+  "forest_dragon",
+  "giant_minotaurus",
+  "cardia_mermaid",
+  "cardia_dragon",
+  "snow_demon",
+  "white_tiger_girl",
+  "winfred",
+  "giant_snow_dragon",
+  "cardia_yeti",
+  "island_death",
+  "dark_jin",
+] as const;
+export type BossIdentifier = (typeof bossIdentifier)[number];
+
+export const allIdentifier = [
   ...oreIdentifier,
   ...plantIdentifier,
   ...itemIdentifier,
+  ...bossIdentifier,
 ] as const;
-type AllIdentifier = (typeof allIdentifier)[number][];
+export type AllIdentifier = (typeof allIdentifier)[number];

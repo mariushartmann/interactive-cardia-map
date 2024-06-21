@@ -1,15 +1,26 @@
 import { create } from "zustand";
-import { itemIdentifier, oreIdentifier } from "../data/model";
+import {
+  bossIdentifier,
+  BossIdentifier,
+  ItemIdentifier,
+  itemIdentifier,
+  OreIdentifier,
+  oreIdentifier,
+} from "../data/model";
 
 type AppStore = {
-  visibleOres: string[];
-  setVisibleOres: (value: string[]) => void;
+  visibleOres: OreIdentifier[];
+  setVisibleOres: (value: OreIdentifier[]) => void;
   setVisibleOresAll: () => void;
   setVisibleOresNone: () => void;
-  visibleItems: string[];
-  setVisibleItems: (value: string[]) => void;
+  visibleItems: ItemIdentifier[];
+  setVisibleItems: (value: ItemIdentifier[]) => void;
   setVisibleItemsAll: () => void;
   setVisibleItemsNone: () => void;
+  visibleBosses: BossIdentifier[];
+  setVisibleBosses: (value: BossIdentifier[]) => void;
+  setVisibleBossesAll: () => void;
+  setVisibleBossesNone: () => void;
 };
 
 export const useAppStore = create<AppStore>((set) => ({
@@ -21,4 +32,9 @@ export const useAppStore = create<AppStore>((set) => ({
   setVisibleItems: (newValue) => set(() => ({ visibleItems: newValue })),
   setVisibleItemsAll: () => set(() => ({ visibleItems: [...itemIdentifier] })),
   setVisibleItemsNone: () => set(() => ({ visibleItems: [] })),
+  visibleBosses: [...bossIdentifier],
+  setVisibleBosses: (newValue) => set(() => ({ visibleBosses: newValue })),
+  setVisibleBossesAll: () =>
+    set(() => ({ visibleBosses: [...bossIdentifier] })),
+  setVisibleBossesNone: () => set(() => ({ visibleBosses: [] })),
 }));

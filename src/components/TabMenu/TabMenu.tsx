@@ -13,56 +13,78 @@ import {
   Typography,
 } from "@mui/joy";
 import { useTranslation } from "react-i18next";
-import { itemIdentifier, oreIdentifier } from "../../data/model";
-import { ores, items } from "../../data";
+import {
+  BossIdentifier,
+  bossIdentifier,
+  ItemIdentifier,
+  itemIdentifier,
+  OreIdentifier,
+  oreIdentifier,
+  AllIdentifier,
+  DataType,
+} from "../../data/model";
+import { ores, items, bosses } from "../../data";
 
 export const TabMenu = () => {
   const { t } = useTranslation();
-  const {
-    visibleOres,
-    setVisibleOres,
-    setVisibleOresAll,
-    setVisibleOresNone,
-    visibleItems,
-    setVisibleItems,
-    setVisibleItemsAll,
-    setVisibleItemsNone,
-  } = useAppStore();
+  const appStore = useAppStore();
 
   const showAll = () => {
-    setVisibleOresAll();
-    setVisibleItemsAll();
+    appStore.setVisibleOresAll();
+    appStore.setVisibleItemsAll();
   };
 
   const showNone = () => {
-    setVisibleOresNone();
-    setVisibleItemsNone();
+    appStore.setVisibleOresNone();
+    appStore.setVisibleItemsNone();
   };
 
-  const updateVisibilityOres = useCallback(
-    (id: string, value: boolean) => {
-      const index = visibleOres.indexOf(id);
+  const updateVisibility = useCallback(
+    (type: DataType, id: AllIdentifier, value: boolean) => {
+      let store: AllIdentifier[] = appStore.visibleOres;
+      let func: (value: any[]) => void = appStore.setVisibleOres;
+
+      switch (type) {
+        case "plant":
+          break;
+        case "item":
+          store = appStore.visibleItems;
+          func = appStore.setVisibleItems;
+          break;
+        case "boss":
+          store = appStore.visibleBosses;
+          func = appStore.setVisibleBosses;
+          break;
+        case "npc":
+          break;
+        default:
+      }
+
+      const index = store.indexOf(id);
       if (value) {
-        if (index === -1) setVisibleOres([...visibleOres, id]);
+        if (index === -1) func([...store, id]);
         return;
       }
-      visibleOres.splice(index, 1);
-      if (index !== -1) setVisibleOres([...visibleOres]);
+      const newStore = [...store];
+      newStore.splice(index, 1);
+      if (index !== -1) func([...newStore]);
     },
-    [visibleOres, setVisibleOres]
+    [appStore]
+  );
+
+  const updateVisibilityOres = useCallback(
+    (id: OreIdentifier, value: boolean) => updateVisibility("ore", id, value),
+    [updateVisibility]
   );
 
   const updateVisibilityItems = useCallback(
-    (id: string, value: boolean) => {
-      const index = visibleItems.indexOf(id);
-      if (value) {
-        if (index === -1) setVisibleItems([...visibleItems, id]);
-        return;
-      }
-      visibleItems.splice(index, 1);
-      if (index !== -1) setVisibleItems([...visibleItems]);
-    },
-    [visibleItems, setVisibleItems]
+    (id: ItemIdentifier, value: boolean) => updateVisibility("item", id, value),
+    [updateVisibility]
+  );
+
+  const updateVisibilityBosses = useCallback(
+    (id: BossIdentifier, value: boolean) => updateVisibility("boss", id, value),
+    [updateVisibility]
   );
 
   const renderOres = useCallback(() => {
@@ -71,7 +93,7 @@ export const TabMenu = () => {
         <Typography typography="h3">Ores</Typography>
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           {oreIdentifier.map((ore) => {
-            const isVisible = visibleOres.indexOf(ore) !== -1;
+            const isVisible = appStore.visibleOres.indexOf(ore) !== -1;
             const data = ores.find((x) => x.ids.includes(ore));
 
             const checkbox = (
@@ -115,7 +137,7 @@ export const TabMenu = () => {
         </Box>
       </>
     );
-  }, [visibleOres, t, updateVisibilityOres]);
+  }, [appStore.visibleOres, t, updateVisibilityOres]);
 
   const renderItems = useCallback(() => {
     return (
@@ -123,7 +145,7 @@ export const TabMenu = () => {
         <Typography typography="h3">Items</Typography>
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           {itemIdentifier.map((item) => {
-            const isVisible = visibleItems.indexOf(item) !== -1;
+            const isVisible = appStore.visibleItems.indexOf(item) !== -1;
             const data = items.find((x) => x.ids.includes(item));
 
             return (
@@ -146,7 +168,38 @@ export const TabMenu = () => {
         </Box>
       </>
     );
-  }, [visibleItems, t, updateVisibilityItems]);
+  }, [appStore.visibleItems, t, updateVisibilityItems]);
+
+  const renderBosses = useCallback(() => {
+    return (
+      <>
+        <Typography typography="h3">Bosses</Typography>
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          {bossIdentifier.map((boss) => {
+            const isVisible = appStore.visibleBosses.indexOf(boss) !== -1;
+            const data = bosses.find((x) => x.ids.includes(boss));
+
+            return (
+              <Box
+                key={boss}
+                sx={{ display: "flex", py: 0.25, mb: 0.25, gap: 2 }}
+              >
+                <Checkbox
+                  label={t(`bosses.${boss}`)}
+                  checked={data?.data === null ? false : isVisible}
+                  onChange={(e) =>
+                    updateVisibilityBosses(boss, e.target.checked)
+                  }
+                  disabled={data?.data === null}
+                  variant="outlined"
+                />
+              </Box>
+            );
+          })}
+        </Box>
+      </>
+    );
+  }, [appStore.visibleBosses, t, updateVisibilityBosses]);
 
   return (
     <Card
@@ -192,6 +245,7 @@ export const TabMenu = () => {
         >
           {renderOres()}
           {renderItems()}
+          {renderBosses()}
         </TabPanel>
         <Box sx={{ display: "flex", gap: 1, mt: "auto" }}>
           <Button onClick={showAll}>All</Button>
