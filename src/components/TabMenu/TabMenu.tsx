@@ -14,7 +14,6 @@ import {
   TabPanel,
   Tabs,
   Tooltip,
-  Typography,
 } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import {
@@ -28,7 +27,6 @@ import {
   DataType,
 } from "../../data/model";
 import { ores, items, bosses } from "../../data";
-import "./TabMenu.scss";
 
 export const TabMenu = () => {
   const { t } = useTranslation();
@@ -252,9 +250,6 @@ export const TabMenu = () => {
         <TabPanel
           value={0}
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 2,
             overflowY: "auto",
             p: 0,
             my: 2,
@@ -265,9 +260,6 @@ export const TabMenu = () => {
         <TabPanel
           value={1}
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 2,
             overflowY: "auto",
             p: 0,
             my: 2,
