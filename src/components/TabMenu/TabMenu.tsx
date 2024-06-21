@@ -302,6 +302,10 @@ export const TabMenu = () => {
                 {renderBosses()}
               </AccordionDetails>
             </Accordion>
+            <Accordion>
+              <AccordionSummary>NPCs</AccordionSummary>
+              <AccordionDetails>Coming soon</AccordionDetails>
+            </Accordion>
           </AccordionGroup>
         </TabPanel>
         <Box sx={{ display: "flex", gap: 1, mt: "auto" }}>
