@@ -1,6 +1,10 @@
 import { useCallback } from "react";
 import { useAppStore } from "../../store/appStore";
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionGroup,
+  AccordionSummary,
   Box,
   Button,
   Card,
@@ -24,6 +28,7 @@ import {
   DataType,
 } from "../../data/model";
 import { ores, items, bosses } from "../../data";
+import "./TabMenu.scss";
 
 export const TabMenu = () => {
   const { t } = useTranslation();
@@ -32,11 +37,13 @@ export const TabMenu = () => {
   const showAll = () => {
     appStore.setVisibleOresAll();
     appStore.setVisibleItemsAll();
+    appStore.setVisibleBossesAll();
   };
 
   const showNone = () => {
     appStore.setVisibleOresNone();
     appStore.setVisibleItemsNone();
+    appStore.setVisibleBossesNone();
   };
 
   const updateVisibility = useCallback(
@@ -90,7 +97,6 @@ export const TabMenu = () => {
   const renderOres = useCallback(() => {
     return (
       <>
-        <Typography typography="h3">Ores</Typography>
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           {oreIdentifier.map((ore) => {
             const isVisible = appStore.visibleOres.indexOf(ore) !== -1;
@@ -102,7 +108,7 @@ export const TabMenu = () => {
                 sx={{ display: "flex", py: 0.25, mb: 0.25, gap: 2 }}
               >
                 <Checkbox
-                  label={t(`ores.${ore}`)}
+                  label={t(`ore.${ore}`)}
                   checked={data?.data === null ? false : isVisible}
                   onChange={(e) => updateVisibilityOres(ore, e.target.checked)}
                   disabled={data?.data === null}
@@ -142,7 +148,6 @@ export const TabMenu = () => {
   const renderItems = useCallback(() => {
     return (
       <>
-        <Typography typography="h3">Items</Typography>
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           {itemIdentifier.map((item) => {
             const isVisible = appStore.visibleItems.indexOf(item) !== -1;
@@ -154,7 +159,7 @@ export const TabMenu = () => {
                 sx={{ display: "flex", py: 0.25, mb: 0.25, gap: 2 }}
               >
                 <Checkbox
-                  label={t(`items.${item}`)}
+                  label={t(`item.${item}`)}
                   checked={data?.data === null ? false : isVisible}
                   onChange={(e) =>
                     updateVisibilityItems(item, e.target.checked)
@@ -173,7 +178,6 @@ export const TabMenu = () => {
   const renderBosses = useCallback(() => {
     return (
       <>
-        <Typography typography="h3">Bosses</Typography>
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           {bossIdentifier.map((boss) => {
             const isVisible = appStore.visibleBosses.indexOf(boss) !== -1;
@@ -185,7 +189,7 @@ export const TabMenu = () => {
                 sx={{ display: "flex", py: 0.25, mb: 0.25, gap: 2 }}
               >
                 <Checkbox
-                  label={t(`bosses.${boss}`)}
+                  label={t(`boss.${boss}`)}
                   checked={data?.data === null ? false : isVisible}
                   onChange={(e) =>
                     updateVisibilityBosses(boss, e.target.checked)
@@ -200,6 +204,32 @@ export const TabMenu = () => {
       </>
     );
   }, [appStore.visibleBosses, t, updateVisibilityBosses]);
+
+  const renderVisibilityButtons = useCallback(
+    (showFunc: () => void, hideFunc: () => void) => {
+      return (
+        <>
+          <Button
+            size="sm"
+            variant="outlined"
+            onClick={showFunc}
+            sx={{ flexGrow: 1, py: 0, minHeight: "unset", height: 24 }}
+          >
+            All
+          </Button>
+          <Button
+            size="sm"
+            variant="outlined"
+            onClick={hideFunc}
+            sx={{ flexGrow: 1, py: 0, minHeight: "unset", height: 24 }}
+          >
+            None
+          </Button>
+        </>
+      );
+    },
+    []
+  );
 
   return (
     <Card
@@ -239,17 +269,55 @@ export const TabMenu = () => {
             gap: 2,
             overflowY: "auto",
             p: 0,
-            pl: 2,
             my: 2,
           }}
         >
-          {renderOres()}
-          {renderItems()}
-          {renderBosses()}
+          <AccordionGroup>
+            <Accordion>
+              <AccordionSummary>Ores</AccordionSummary>
+              <AccordionDetails>
+                <Box sx={{ display: "flex", gap: 1, mb: 1 }}>
+                  {renderVisibilityButtons(
+                    appStore.setVisibleOresAll,
+                    appStore.setVisibleOresNone
+                  )}
+                </Box>
+                {renderOres()}
+              </AccordionDetails>
+            </Accordion>
+            <Accordion>
+              <AccordionSummary>Items</AccordionSummary>
+              <AccordionDetails>
+                <Box sx={{ display: "flex", gap: 1, mb: 1 }}>
+                  {renderVisibilityButtons(
+                    appStore.setVisibleItemsAll,
+                    appStore.setVisibleItemsNone
+                  )}
+                </Box>
+                {renderItems()}
+              </AccordionDetails>
+            </Accordion>
+            <Accordion>
+              <AccordionSummary>Bosses</AccordionSummary>
+              <AccordionDetails>
+                <Box sx={{ display: "flex", gap: 1, mb: 1 }}>
+                  {renderVisibilityButtons(
+                    appStore.setVisibleBossesAll,
+                    appStore.setVisibleBossesNone
+                  )}
+                </Box>
+                {renderBosses()}
+              </AccordionDetails>
+            </Accordion>
+          </AccordionGroup>
         </TabPanel>
         <Box sx={{ display: "flex", gap: 1, mt: "auto" }}>
-          <Button onClick={showAll}>All</Button>
-          <Button onClick={showNone}>None</Button>
+          <Button variant="outlined" onClick={showAll} sx={{ flexGrow: 1 }}>
+            All
+          </Button>
+          <Button variant="outlined" onClick={showNone} sx={{ flexGrow: 1 }}>
+            None
+          </Button>
         </Box>
       </Tabs>
     </Card>

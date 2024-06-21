@@ -1,15 +1,21 @@
 import "./Map.scss";
 import { ores, items, bosses } from "../../data";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useAppStore } from "../../store/appStore";
 import {
   BossIdentifier,
+  DataItem,
   ItemIdentifier,
   OreIdentifier,
 } from "../../data/model";
+import { Modal, ModalClose, ModalDialog, Typography } from "@mui/joy";
+import { useTranslation } from "react-i18next";
 
 export const Map = () => {
+  const { t } = useTranslation();
   const { visibleOres, visibleItems, visibleBosses } = useAppStore();
+  const [modalData, setModalData] = useState<DataItem>(ores[0]);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const renderOres = useCallback(() => {
     const renderesOres = ores.filter((o) =>
@@ -27,6 +33,11 @@ export const Map = () => {
             fillOpacity={0.6}
             stroke="#000000"
             strokeWidth={2}
+            onClick={() => {
+              setModalData(ore);
+              setModalOpen(true);
+            }}
+            style={{ cursor: "pointer" }}
           />
         );
       });
@@ -49,6 +60,11 @@ export const Map = () => {
             href={process.env.PUBLIC_URL + "/item.png"}
             x={Number(point[0]) - 15}
             y={Number(point[1]) - 11}
+            onClick={() => {
+              setModalData(item);
+              setModalOpen(true);
+            }}
+            style={{ cursor: "pointer" }}
           />
         );
       });
@@ -71,21 +87,46 @@ export const Map = () => {
             href={process.env.PUBLIC_URL + "/boss.png"}
             x={Number(point[0]) - 16}
             y={Number(point[1]) - 16}
+            onClick={() => {
+              setModalData(boss);
+              setModalOpen(true);
+            }}
+            style={{ cursor: "pointer" }}
           />
         );
       });
   }, [visibleBosses]);
 
   return (
-    <svg viewBox="0 0 1343 1004">
-      <image
-        width={1343}
-        height={1004}
-        href={process.env.PUBLIC_URL + "/Cardia.jpg"}
-      ></image>
-      {renderOres()}
-      {renderItems()}
-      {renderBosses()}
-    </svg>
+    <>
+      <svg viewBox="0 0 1343 1004">
+        <image
+          width={1343}
+          height={1004}
+          href={process.env.PUBLIC_URL + "/Cardia.jpg"}
+        ></image>
+        {renderOres()}
+        {renderItems()}
+        {renderBosses()}
+      </svg>
+      <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
+        <ModalDialog layout="center" variant="outlined">
+          <ModalClose />
+          <Typography level="h4">Here you can find:</Typography>
+          {modalData.ids.length > 1 && (
+            <ul>
+              {modalData.ids.map((id) => (
+                <li key={id}>{t(`${modalData.itemType}.${id}`)}</li>
+              ))}
+            </ul>
+          )}
+          {modalData.ids.length === 1 && (
+            <Typography>
+              {t(`${modalData.itemType}.${modalData.ids[0]}`)}
+            </Typography>
+          )}
+        </ModalDialog>
+      </Modal>
+    </>
   );
 };

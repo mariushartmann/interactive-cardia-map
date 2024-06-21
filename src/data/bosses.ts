@@ -58,7 +58,7 @@ const bosses: Data = [
     data: "890,210",
   },
   {
-    ids: ["snow_demon"],
+    ids: ["snow_deamon"],
     color: "#ffffff",
     itemType: "boss",
     locationType: "point",

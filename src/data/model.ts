@@ -81,7 +81,7 @@ export const bossIdentifier = [
   "giant_minotaurus",
   "cardia_mermaid",
   "cardia_dragon",
-  "snow_demon",
+  "snow_deamon",
   "white_tiger_girl",
   "winfred",
   "giant_snow_dragon",
