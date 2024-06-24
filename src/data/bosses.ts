@@ -9,6 +9,8 @@ export const bossIcons: { [key in BossIdentifier]: string } = {
   cave_dragon: "/icons/monsters/bosses/Cave Dragon.png",
   dark_jin: "/icons/monsters/bosses/Dark Jin.png",
   forest_dragon: "/icons/monsters/bosses/Forest Dragon.png",
+  giant_cardia_wolf: "/icons/monsters/bosses/Giant Cardia Wolf.png",
+  giant_creature: "/icons/monsters/bosses/Giant Creature.png",
   giant_cave_bandit: "/icons/monsters/bosses/Cave Bandit.png",
   giant_cursed_warrior: "/icons/monsters/bosses/Giant Cursed Warrior.png",
   giant_fire_mage: "/icons/monsters/bosses/Giant Fire Mage.png",
@@ -155,5 +157,19 @@ export const bosses: Data = [
     itemType: "boss",
     locationType: "point",
     data: null,
+  },
+  {
+    ids: ["giant_cardia_wolf"],
+    color: "#ffffff",
+    itemType: "boss",
+    locationType: "point",
+    data: "520,410",
+  },
+  {
+    ids: ["giant_creature"],
+    color: "#ffffff",
+    itemType: "boss",
+    locationType: "point",
+    data: "955,580",
   },
 ];

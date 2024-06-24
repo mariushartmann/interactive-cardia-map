@@ -97,6 +97,8 @@ export const bossIdentifier = [
   "cave_dragon",
   "dark_jin",
   "forest_dragon",
+  "giant_cardia_wolf",
+  "giant_creature",
   "giant_cave_bandit",
   "giant_cursed_warrior",
   "giant_fire_mage",
