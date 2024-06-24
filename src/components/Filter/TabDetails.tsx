@@ -16,7 +16,14 @@ import {
   itemIdentifier,
   oreIdentifier,
 } from "../../data/model";
-import { bosses, itemIcons, items, oreIcons, ores } from "../../data";
+import {
+  bossIcons,
+  bosses,
+  itemIcons,
+  items,
+  oreIcons,
+  ores,
+} from "../../data";
 import {
   Accordion,
   AccordionDetails,
@@ -205,24 +212,49 @@ export const DrawerFiltersTabDetails = ({}: IDrawerFiltersTabDetailsProps) => {
       <>
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           {bossIdentifier.map((boss) => {
+            const icon = process.env.PUBLIC_URL + bossIcons[boss];
             const isVisible = appStore.visibleBosses.indexOf(boss) !== -1;
             const data = bosses.find((x) => x.ids.includes(boss));
 
-            return (
-              <Box
+            const checkbox = (
+              <ListItem
                 key={boss}
+                variant={data?.data !== null && isVisible ? "soft" : "plain"}
+                color="primary"
+                onClick={() => updateVisibilityBosses(boss, !isVisible)}
                 sx={{ display: "flex", py: 0.25, mb: 0.25, gap: 2 }}
               >
                 <Checkbox
+                  overlay
                   label={t(`boss.${boss}`)}
-                  checked={data?.data === null ? false : isVisible}
-                  onChange={(e) =>
-                    updateVisibilityBosses(boss, e.target.checked)
-                  }
+                  checked={data?.data !== null && isVisible}
+                  readOnly
                   disabled={data?.data === null}
                   variant="outlined"
                 />
-              </Box>
+                <Box
+                  sx={{
+                    ml: "auto",
+                    height: 24,
+                    width: 24,
+                  }}
+                >
+                  <img src={icon} alt={boss} height="100%" width="100%" />
+                </Box>
+              </ListItem>
+            );
+
+            return data?.data === null ? (
+              <Tooltip
+                key={boss}
+                title="Found in Cardia Cave"
+                color="warning"
+                variant="soft"
+              >
+                {checkbox}
+              </Tooltip>
+            ) : (
+              checkbox
             );
           })}
         </Box>

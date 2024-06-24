@@ -56,11 +56,15 @@
     "weapon_of_the_gods": "Weapon of the Gods"
   },
   "boss": {
+    "abandoned_mutant": "Abandoned Mutant",
     "cardia_dragon": "Cardia Dragon",
     "cardia_mermaid": "Cardia Mermaid",
     "cardia_yeti": "Cardia Yeti",
+    "cave_deamon": "Cave Deamon",
+    "cave_dragon": "Cave Dragon",
     "dark_jin": "Dark Jin",
     "forest_dragon": "Forest Dragon",
+    "giant_cave_bandit": "Giant Cave Bandit",
     "giant_cursed_warrior": "Giant Cursed Warrior",
     "giant_fire_mage": "Giant Fire Mage",
     "giant_kravog": "Giant Kravog",

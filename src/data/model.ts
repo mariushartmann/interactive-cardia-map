@@ -89,11 +89,15 @@ export const itemIdentifier = [
 export type ItemIdentifier = (typeof itemIdentifier)[number];
 
 export const bossIdentifier = [
+  "abandoned_mutant",
   "cardia_dragon",
   "cardia_mermaid",
   "cardia_yeti",
+  "cave_deamon",
+  "cave_dragon",
   "dark_jin",
   "forest_dragon",
+  "giant_cave_bandit",
   "giant_cursed_warrior",
   "giant_fire_mage",
   "giant_kravog",

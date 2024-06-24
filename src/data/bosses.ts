@@ -1,6 +1,28 @@
-import type { Data } from "./model";
+import type { BossIdentifier, Data } from "./model";
 
-const bosses: Data = [
+export const bossIcons: { [key in BossIdentifier]: string } = {
+  abandoned_mutant: "/icons/monsters/bosses/Abandoned Mutant.png",
+  cardia_dragon: "/icons/monsters/bosses/Cardia Dragon.png",
+  cardia_mermaid: "/icons/monsters/bosses/Cardia Mermaid.png",
+  cardia_yeti: "/icons/monsters/bosses/Cardia Yeti.png",
+  cave_deamon: "/icons/monsters/bosses/Cave Demon.png",
+  cave_dragon: "/icons/monsters/bosses/Cave Dragon.png",
+  dark_jin: "/icons/monsters/bosses/Dark Jin.png",
+  forest_dragon: "/icons/monsters/bosses/Forest Dragon.png",
+  giant_cave_bandit: "/icons/monsters/bosses/Cave Bandit.png",
+  giant_cursed_warrior: "/icons/monsters/bosses/Giant Cursed Warrior.png",
+  giant_fire_mage: "/icons/monsters/bosses/Giant Fire Mage.png",
+  giant_kravog: "/icons/monsters/bosses/Giant Kravog.png",
+  giant_minotaurus: "/icons/monsters/bosses/Giant Minotaurus.png",
+  giant_snow_dragon: "/icons/monsters/bosses/Giant Snow Dragon.png",
+  island_death: "/icons/monsters/bosses/Island Death.png",
+  river_mutant: "/icons/monsters/bosses/River Mutant.png",
+  snow_deamon: "/icons/monsters/bosses/Snow Demon.png",
+  white_tiger_girl: "/icons/monsters/bosses/White Tiger Girl.png",
+  winfred: "/icons/monsters/bosses/Winfred.png",
+};
+
+export const bosses: Data = [
   {
     ids: ["giant_fire_mage"],
     color: "#ffffff",
@@ -106,6 +128,32 @@ const bosses: Data = [
     locationType: "point",
     data: "1075,555",
   },
+  {
+    ids: ["giant_cave_bandit"],
+    color: "#ffffff",
+    itemType: "boss",
+    locationType: "point",
+    data: null,
+  },
+  {
+    ids: ["cave_deamon"],
+    color: "#ffffff",
+    itemType: "boss",
+    locationType: "point",
+    data: null,
+  },
+  {
+    ids: ["cave_dragon"],
+    color: "#ffffff",
+    itemType: "boss",
+    locationType: "point",
+    data: null,
+  },
+  {
+    ids: ["abandoned_mutant"],
+    color: "#ffffff",
+    itemType: "boss",
+    locationType: "point",
+    data: null,
+  },
 ];
-
-export { bosses };
