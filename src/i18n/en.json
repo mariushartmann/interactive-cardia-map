@@ -31,6 +31,7 @@
   },
   "item": {
     "adventure_notice": "Adventure Notice",
+    "blood_feather": "Blood Feather",
     "book_of_time": "Book of Time",
     "cardia_note_1": "Cardia Note (1)",
     "cardia_note_2": "Cardia Note (2)",
@@ -38,8 +39,9 @@
     "cardia_note_4": "Cardia Note (4)",
     "cavesman_watch": "Cavesman Watch",
     "flower_of_darkness": "Flower of Darkness",
+    "goaji_stone": "Goaji Stone",
+    "golden_flower": "Golden Flower",
     "letter_of_a_soldier": "Letter of a Soldier",
-    "luggage_of_a_soldier": "Luggage of a Soldier",
     "lillys_adventure_book": "Lilly's Adventure Book",
     "lillys_broom": "Lilly's Broom",
     "lillys_cat_plush": "Lilly's Cat Plush",
@@ -48,7 +50,9 @@
     "lillys_secret_key": "Lilly's Secret Key",
     "lillys_ticket": "Lilly's Ticket",
     "lucky_ring": "Lucky Ring",
+    "luggage_of_a_soldier": "Luggage of a Soldier",
     "mystic_cube": "Mystic Cube",
+    "rings_of_connectivity": "Rings of Connectivity",
     "weapon_of_the_gods": "Weapon of the Gods"
   },
   "boss": {

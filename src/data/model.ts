@@ -62,6 +62,7 @@ export type PlantIdentifier = (typeof plantIdentifier)[number];
 
 export const itemIdentifier = [
   "adventure_notice",
+  "blood_feather",
   "book_of_time",
   "cardia_note_1",
   "cardia_note_2",
@@ -69,6 +70,8 @@ export const itemIdentifier = [
   "cardia_note_4",
   "cavesman_watch",
   "flower_of_darkness",
+  "goaji_stone",
+  "golden_flower",
   "letter_of_a_soldier",
   "lillys_adventure_book",
   "lillys_broom",
@@ -80,6 +83,7 @@ export const itemIdentifier = [
   "lucky_ring",
   "luggage_of_a_soldier",
   "mystic_cube",
+  "rings_of_connectivity",
   "weapon_of_the_gods",
 ] as const;
 export type ItemIdentifier = (typeof itemIdentifier)[number];

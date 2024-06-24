@@ -2,12 +2,16 @@ import type { Data, ItemIdentifier } from "./model";
 
 export const itemIcons: { [key in ItemIdentifier]: string } = {
   adventure_notice: "/icons/items/Adventure Notice.png",
+  blood_feather: "/icons/items/Blood Feather.png",
   book_of_time: "/icons/items/Book of Time.png",
   cardia_note_1: "/icons/items/Cardia Note.png",
   cardia_note_2: "/icons/items/Cardia Note.png",
   cardia_note_3: "/icons/items/Cardia Note.png",
   cardia_note_4: "/icons/items/Cardia Note.png",
+  cavesman_watch: "/icons/items/Cavesman Watch.png",
   flower_of_darkness: "/icons/items/Flower of Darkness.png",
+  goaji_stone: "/icons/items/Goaji Stone.png",
+  golden_flower: "/icons/items/Golden Flower.png",
   letter_of_a_soldier: "/icons/items/Letter of a Soldier.png",
   lillys_adventure_book: "/icons/items/Adventure Book.png",
   lillys_broom: "/icons/items/Broom.png",
@@ -16,11 +20,11 @@ export const itemIcons: { [key in ItemIdentifier]: string } = {
   lillys_necklace: "/icons/items/Necklace.png",
   lillys_secret_key: "/icons/items/Secret Key.png",
   lillys_ticket: "/icons/items/Ticket.png",
+  lucky_ring: "/icons/items/Lucky Ring.png",
   luggage_of_a_soldier: "/icons/items/Luggage of a Soldier.png",
   mystic_cube: "/icons/items/Mystic Cube.png",
+  rings_of_connectivity: "/icons/items/Rings of Connectivity.png",
   weapon_of_the_gods: "/icons/items/Weapon of the Gods.png",
-  cavesman_watch: "/icons/items/Cavesman Watch.png",
-  lucky_ring: "/icons/items/Lucky Ring.png",
 };
 
 export const items: Data = [
@@ -163,5 +167,33 @@ export const items: Data = [
     itemType: "item",
     locationType: "point",
     data: "985,185",
+  },
+  {
+    ids: ["blood_feather"],
+    color: "#ffffff",
+    itemType: "item",
+    locationType: "point",
+    data: "550,175",
+  },
+  {
+    ids: ["goaji_stone"],
+    color: "#ffffff",
+    itemType: "item",
+    locationType: "point",
+    data: "1105,355",
+  },
+  {
+    ids: ["golden_flower"],
+    color: "#ffffff",
+    itemType: "item",
+    locationType: "point",
+    data: "810,570",
+  },
+  {
+    ids: ["rings_of_connectivity"],
+    color: "#ffffff",
+    itemType: "item",
+    locationType: "point",
+    data: null,
   },
 ];
