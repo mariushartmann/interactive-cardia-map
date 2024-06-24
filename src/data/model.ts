@@ -111,10 +111,25 @@ export const bossIdentifier = [
 ] as const;
 export type BossIdentifier = (typeof bossIdentifier)[number];
 
+export const npcIdentifier = [
+  "aldwin",
+  "artemis",
+  "atreyu",
+  "elora",
+  "rina",
+  "shae",
+  "theoden",
+  "x",
+  "zuah",
+  "zuahs_shadow",
+] as const;
+export type NpcIdentifier = (typeof npcIdentifier)[number];
+
 export const allIdentifier = [
   ...oreIdentifier,
   ...plantIdentifier,
   ...itemIdentifier,
   ...bossIdentifier,
+  ...npcIdentifier,
 ] as const;
 export type AllIdentifier = (typeof allIdentifier)[number];

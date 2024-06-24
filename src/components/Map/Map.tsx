@@ -1,10 +1,11 @@
-import { ores, items, bosses } from "../../data";
+import { ores, items, bosses, npcs } from "../../data";
 import { useCallback, useState } from "react";
 import { useAppStore } from "../../store/appStore";
 import {
   BossIdentifier,
   DataItem,
   ItemIdentifier,
+  NpcIdentifier,
   OreIdentifier,
 } from "../../data/model";
 import { Button, Modal, ModalClose, ModalDialog, Typography } from "@mui/joy";
@@ -15,16 +16,17 @@ import FilterIcon from "@mui/icons-material/Tune";
 export const Map = () => {
   const { t } = useTranslation();
   const [showFilters, setShowFilters] = useState(false);
-  const { visibleOres, visibleItems, visibleBosses } = useAppStore();
+  const { visibleOres, visibleItems, visibleBosses, visibleNpcs } =
+    useAppStore();
   const [modalData, setModalData] = useState<DataItem>(ores[0]);
   const [modalOpen, setModalOpen] = useState(false);
 
   const renderOres = useCallback(() => {
-    const renderesOres = ores.filter((o) =>
+    const renderedOres = ores.filter((o) =>
       o.ids.some((x) => visibleOres.includes(x as OreIdentifier))
     );
 
-    return renderesOres
+    return renderedOres
       .filter((x) => x.data !== null)
       .map((ore) => {
         return (
@@ -46,11 +48,11 @@ export const Map = () => {
   }, [visibleOres]);
 
   const renderItems = useCallback(() => {
-    const renderesItems = items.filter((i) =>
+    const renderedItems = items.filter((i) =>
       i.ids.some((x) => visibleItems.includes(x as ItemIdentifier))
     );
 
-    return renderesItems
+    return renderedItems
       .filter((x) => x.data !== null)
       .map((item) => {
         const point = (item.data as string).split(",");
@@ -73,11 +75,11 @@ export const Map = () => {
   }, [visibleItems]);
 
   const renderBosses = useCallback(() => {
-    const renderesBosses = bosses.filter((b) =>
+    const renderedBosses = bosses.filter((b) =>
       b.ids.some((x) => visibleBosses.includes(x as BossIdentifier))
     );
 
-    return renderesBosses
+    return renderedBosses
       .filter((x) => x.data !== null)
       .map((boss) => {
         const point = (boss.data as string).split(",");
@@ -99,6 +101,33 @@ export const Map = () => {
       });
   }, [visibleBosses]);
 
+  const renderNpcs = useCallback(() => {
+    const renderedNpcs = npcs.filter((n) =>
+      n.ids.some((x) => visibleNpcs.includes(x as NpcIdentifier))
+    );
+
+    return renderedNpcs
+      .filter((x) => x.data !== null)
+      .map((npc) => {
+        const point = (npc.data as string).split(",");
+        return (
+          <image
+            key={npc.ids[0]}
+            width={28}
+            height={28}
+            href={process.env.PUBLIC_URL + "/npc.png"}
+            x={Number(point[0]) - 14}
+            y={Number(point[1]) - 14}
+            onClick={() => {
+              setModalData(npc);
+              setModalOpen(true);
+            }}
+            style={{ cursor: "pointer" }}
+          />
+        );
+      });
+  }, [visibleNpcs]);
+
   return (
     <>
       <svg
@@ -113,6 +142,7 @@ export const Map = () => {
         {renderOres()}
         {renderItems()}
         {renderBosses()}
+        {renderNpcs()}
       </svg>
       <Button
         variant="outlined"

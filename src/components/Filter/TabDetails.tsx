@@ -11,9 +11,11 @@ import {
   BossIdentifier,
   DataType,
   ItemIdentifier,
+  NpcIdentifier,
   OreIdentifier,
   bossIdentifier,
   itemIdentifier,
+  npcIdentifier,
   oreIdentifier,
 } from "../../data/model";
 import {
@@ -21,6 +23,7 @@ import {
   bosses,
   itemIcons,
   items,
+  npcs,
   oreIcons,
   ores,
 } from "../../data";
@@ -56,6 +59,8 @@ export const DrawerFiltersTabDetails = ({}: IDrawerFiltersTabDetailsProps) => {
           func = appStore.setVisibleBosses;
           break;
         case "npc":
+          store = appStore.visibleNpcs;
+          func = appStore.setVisibleNpcs;
           break;
         default:
       }
@@ -84,6 +89,11 @@ export const DrawerFiltersTabDetails = ({}: IDrawerFiltersTabDetailsProps) => {
 
   const updateVisibilityBosses = useCallback(
     (id: BossIdentifier, value: boolean) => updateVisibility("boss", id, value),
+    [updateVisibility]
+  );
+
+  const updateVisibilityNpcs = useCallback(
+    (id: NpcIdentifier, value: boolean) => updateVisibility("npc", id, value),
     [updateVisibility]
   );
 
@@ -262,6 +272,51 @@ export const DrawerFiltersTabDetails = ({}: IDrawerFiltersTabDetailsProps) => {
     );
   }, [appStore.visibleBosses, t, updateVisibilityBosses]);
 
+  const renderNpcs = useCallback(() => {
+    return (
+      <>
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          {npcIdentifier.map((npc) => {
+            const isVisible = appStore.visibleNpcs.indexOf(npc) !== -1;
+            const data = npcs.find((x) => x.ids.includes(npc));
+
+            const checkbox = (
+              <ListItem
+                key={npc}
+                variant={data?.data !== null && isVisible ? "soft" : "plain"}
+                color="primary"
+                onClick={() => updateVisibilityNpcs(npc, !isVisible)}
+                sx={{ display: "flex", py: 0.25, mb: 0.25, gap: 2 }}
+              >
+                <Checkbox
+                  overlay
+                  label={t(`npc.${npc}`)}
+                  checked={data?.data !== null && isVisible}
+                  readOnly
+                  disabled={data?.data === null}
+                  variant="outlined"
+                />
+              </ListItem>
+            );
+
+            return data?.data === null ? (
+              <Tooltip
+                key={npc}
+                title="Found in Cardia Cave"
+                color="warning"
+                variant="soft"
+              >
+                {checkbox}
+              </Tooltip>
+            ) : (
+              checkbox
+            );
+          })}
+        </Box>
+      </>
+    );
+  }, [appStore.visibleNpcs, t, updateVisibilityNpcs]);
+
   const renderVisibilityButtons = useCallback(
     (showFunc: () => void, hideFunc: () => void) => {
       return (
@@ -332,7 +387,15 @@ export const DrawerFiltersTabDetails = ({}: IDrawerFiltersTabDetailsProps) => {
       </Accordion>
       <Accordion>
         <AccordionSummary>NPCs</AccordionSummary>
-        <AccordionDetails>Coming soon</AccordionDetails>
+        <AccordionDetails>
+          <Box sx={{ display: "flex", gap: 1, mb: 1 }}>
+            {renderVisibilityButtons(
+              appStore.setVisibleNpcsAll,
+              appStore.setVisibleNpcsNone
+            )}
+          </Box>
+          {renderNpcs()}
+        </AccordionDetails>
       </Accordion>
     </AccordionGroup>
   );

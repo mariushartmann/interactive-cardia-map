@@ -75,5 +75,17 @@
     "snow_deamon": "Snow Deamon",
     "white_tiger_girl": "White Tiger Girl",
     "winfred": "Winfred"
+  },
+  "npc": {
+    "aldwin": "Aldwin",
+    "artemis": "Artemis",
+    "atreyu": "Atreyu",
+    "elora": "Elora",
+    "rina": "Rina",
+    "shae": "Shae",
+    "theoden": "Theoden",
+    "x": "X",
+    "zuah": "Zuah",
+    "zuahs_shadow": "Zuah's Shadow"
   }
 }

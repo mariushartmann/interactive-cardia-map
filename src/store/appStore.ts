@@ -4,6 +4,8 @@ import {
   BossIdentifier,
   ItemIdentifier,
   itemIdentifier,
+  NpcIdentifier,
+  npcIdentifier,
   OreIdentifier,
   oreIdentifier,
 } from "../data/model";
@@ -21,6 +23,10 @@ type AppStore = {
   setVisibleBosses: (value: BossIdentifier[]) => void;
   setVisibleBossesAll: () => void;
   setVisibleBossesNone: () => void;
+  visibleNpcs: NpcIdentifier[];
+  setVisibleNpcs: (value: NpcIdentifier[]) => void;
+  setVisibleNpcsAll: () => void;
+  setVisibleNpcsNone: () => void;
 };
 
 export const useAppStore = create<AppStore>((set) => ({
@@ -37,4 +43,8 @@ export const useAppStore = create<AppStore>((set) => ({
   setVisibleBossesAll: () =>
     set(() => ({ visibleBosses: [...bossIdentifier] })),
   setVisibleBossesNone: () => set(() => ({ visibleBosses: [] })),
+  visibleNpcs: [...npcIdentifier],
+  setVisibleNpcs: (newValue) => set(() => ({ visibleNpcs: newValue })),
+  setVisibleNpcsAll: () => set(() => ({ visibleNpcs: [...npcIdentifier] })),
+  setVisibleNpcsNone: () => set(() => ({ visibleNpcs: [] })),
 }));
