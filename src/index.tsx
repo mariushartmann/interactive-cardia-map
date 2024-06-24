@@ -6,9 +6,11 @@ import { Home } from "./pages/Home";
 import { CssBaseline } from "@mui/joy";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+const baseUrl = "/interactive-cardia-map";
+
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: baseUrl + "/",
     element: <Home />,
   },
 ]);
