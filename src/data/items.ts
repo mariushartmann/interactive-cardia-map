@@ -1,6 +1,29 @@
-import type { Data } from "./model";
+import type { Data, ItemIdentifier } from "./model";
 
-const items: Data = [
+export const itemIcons: { [key in ItemIdentifier]: string } = {
+  adventure_notice: "/icons/items/Adventure Notice.png",
+  book_of_time: "/icons/items/Book of Time.png",
+  cardia_note_1: "/icons/items/Cardia Note.png",
+  cardia_note_2: "/icons/items/Cardia Note.png",
+  cardia_note_3: "/icons/items/Cardia Note.png",
+  cardia_note_4: "/icons/items/Cardia Note.png",
+  flower_of_darkness: "/icons/items/Flower of Darkness.png",
+  letter_of_a_soldier: "/icons/items/Letter of a Soldier.png",
+  lillys_adventure_book: "/icons/items/Adventure Book.png",
+  lillys_broom: "/icons/items/Broom.png",
+  lillys_cat_plush: "/icons/items/Cat Plush.png",
+  lillys_crown_cork: "/icons/items/Crown Cork.png",
+  lillys_necklace: "/icons/items/Necklace.png",
+  lillys_secret_key: "/icons/items/Secret Key.png",
+  lillys_ticket: "/icons/items/Ticket.png",
+  luggage_of_a_soldier: "/icons/items/Luggage of a Soldier.png",
+  mystic_cube: "/icons/items/Mystic Cube.png",
+  weapon_of_the_gods: "/icons/items/Weapon of the Gods.png",
+  cavesman_watch: "/icons/items/Cavesman Watch.png",
+  lucky_ring: "/icons/items/Lucky Ring.png",
+};
+
+export const items: Data = [
   {
     ids: ["letter_of_a_soldier"],
     color: "#ffffff",
@@ -14,13 +37,6 @@ const items: Data = [
     itemType: "item",
     locationType: "point",
     data: "710,225",
-  },
-  {
-    ids: ["cardia_note"],
-    color: "#ffffff",
-    itemType: "item",
-    locationType: "point",
-    data: "790,125",
   },
   {
     ids: ["weapon_of_the_gods"],
@@ -57,6 +73,95 @@ const items: Data = [
     locationType: "point",
     data: "983,665",
   },
+  {
+    ids: ["lillys_ticket"],
+    color: "#ffffff",
+    itemType: "item",
+    locationType: "point",
+    data: "983,365",
+  },
+  {
+    ids: ["lillys_secret_key"],
+    color: "#ffffff",
+    itemType: "item",
+    locationType: "point",
+    data: "860,213",
+  },
+  {
+    ids: ["lillys_necklace"],
+    color: "#ffffff",
+    itemType: "item",
+    locationType: "point",
+    data: "648,330",
+  },
+  {
+    ids: ["lillys_cat_plush"],
+    color: "#ffffff",
+    itemType: "item",
+    locationType: "point",
+    data: "1043,580",
+  },
+  {
+    ids: ["lillys_broom"],
+    color: "#ffffff",
+    itemType: "item",
+    locationType: "point",
+    data: "870,600",
+  },
+  {
+    ids: ["lillys_adventure_book"],
+    color: "#ffffff",
+    itemType: "item",
+    locationType: "point",
+    data: "835,492",
+  },
+  {
+    ids: ["lillys_crown_cork"],
+    color: "#ffffff",
+    itemType: "item",
+    locationType: "point",
+    data: "713,180",
+  },
+  {
+    ids: ["cavesman_watch"],
+    color: "#ffffff",
+    itemType: "item",
+    locationType: "point",
+    data: null,
+  },
+  {
+    ids: ["lucky_ring"],
+    color: "#ffffff",
+    itemType: "item",
+    locationType: "point",
+    data: null,
+  },
+  {
+    ids: ["cardia_note_1"],
+    color: "#ffffff",
+    itemType: "item",
+    locationType: "point",
+    data: "720,695",
+  },
+  {
+    ids: ["cardia_note_2"],
+    color: "#ffffff",
+    itemType: "item",
+    locationType: "point",
+    data: "505,560",
+  },
+  {
+    ids: ["cardia_note_3"],
+    color: "#ffffff",
+    itemType: "item",
+    locationType: "point",
+    data: "790,125",
+  },
+  {
+    ids: ["cardia_note_4"],
+    color: "#ffffff",
+    itemType: "item",
+    locationType: "point",
+    data: "985,185",
+  },
 ];
-
-export { items };

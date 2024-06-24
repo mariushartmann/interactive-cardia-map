@@ -1,6 +1,35 @@
-import type { Data } from "./model";
+import type { Data, OreIdentifier } from "./model";
 
-const ores: Data = [
+export const oreIcons: { [key in OreIdentifier]: string } = {
+  adamantite: "/icons/ores/OreAdamantite.png",
+  aquamarine: "/icons/ores/OreAquamarine.png",
+  argentum: "/icons/ores/OreArgentum.png",
+  copper: "/icons/ores/OreCopper.png",
+  crusium: "/icons/ores/OreCrusium.png",
+  crystalwing: "/icons/ores/OreCrystalwing.png",
+  duckharukon: "/icons/ores/OreDuckharukon.png",
+  dureline: "/icons/ores/OreDureline.png",
+  emeralnd: "/icons/ores/OreEmeralnd.png",
+  fairyswing: "/icons/ores/OreFairySwing.png",
+  hearthstone: "/icons/ores/OreHeartStone.png",
+  iron: "/icons/ores/OreIron.png",
+  lifestone: "/icons/ores/OreLifeStone.png",
+  manastone: "/icons/ores/OreManaStone.png",
+  mithril: "/icons/ores/OreMithril.png",
+  moonlightstone: "/icons/ores/OreMoonLightStone.png",
+  obsidian: "/icons/ores/OreObsidian.png",
+  opal: "/icons/ores/OreOpal.png",
+  pearl: "/icons/ores/OrePerl.png",
+  regency: "/icons/ores/OreRegency.png",
+  retion: "/icons/ores/OreRetion.png",
+  ruby: "/icons/ores/OreRuby.png",
+  runecarore: "/icons/ores/OreRunecarore.png",
+  sapphire: "/icons/ores/OreSapphire.png",
+  spiritstone: "/icons/ores/OreSpiritStone.png",
+  thunderboltstone: "/icons/ores/OreThunderBoltStone.png",
+};
+
+export const ores: Data = [
   {
     ids: ["spiritstone"],
     color: "#3cb6bc",
@@ -135,5 +164,3 @@ const ores: Data = [
     data: null,
   },
 ];
-
-export { ores };

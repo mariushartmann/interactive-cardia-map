@@ -1,4 +1,3 @@
-import "./Map.scss";
 import { ores, items, bosses } from "../../data";
 import { useCallback, useState } from "react";
 import { useAppStore } from "../../store/appStore";
@@ -8,11 +7,14 @@ import {
   ItemIdentifier,
   OreIdentifier,
 } from "../../data/model";
-import { Modal, ModalClose, ModalDialog, Typography } from "@mui/joy";
+import { Button, Modal, ModalClose, ModalDialog, Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
+import { DrawerFilters } from "../Filter/Filter";
+import FilterIcon from "@mui/icons-material/Tune";
 
 export const Map = () => {
   const { t } = useTranslation();
+  const [showFilters, setShowFilters] = useState(false);
   const { visibleOres, visibleItems, visibleBosses } = useAppStore();
   const [modalData, setModalData] = useState<DataItem>(ores[0]);
   const [modalOpen, setModalOpen] = useState(false);
@@ -99,7 +101,10 @@ export const Map = () => {
 
   return (
     <>
-      <svg viewBox="0 0 1343 1004">
+      <svg
+        viewBox="0 0 1343 1004"
+        style={{ maxHeight: "100%", maxWidth: "100%" }}
+      >
         <image
           width={1343}
           height={1004}
@@ -109,6 +114,24 @@ export const Map = () => {
         {renderItems()}
         {renderBosses()}
       </svg>
+      <Button
+        variant="outlined"
+        color="neutral"
+        startDecorator={<FilterIcon />}
+        onClick={() => setShowFilters(true)}
+        sx={{
+          position: "absolute",
+          top: 10,
+          right: 10,
+          backgroundColor: "#fff",
+        }}
+      >
+        Filters
+      </Button>
+      <DrawerFilters
+        open={showFilters}
+        onChange={(v) => setShowFilters(v)}
+      ></DrawerFilters>
       <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
         <ModalDialog layout="center" variant="outlined">
           <ModalClose />
