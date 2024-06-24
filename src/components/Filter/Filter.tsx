@@ -30,12 +30,14 @@ export const DrawerFilters = ({ open, onChange }: IDrawerFiltersProps) => {
     appStore.setVisibleOresAll();
     appStore.setVisibleItemsAll();
     appStore.setVisibleBossesAll();
+    appStore.setVisibleNpcsAll();
   };
 
   const showNone = () => {
     appStore.setVisibleOresNone();
     appStore.setVisibleItemsNone();
     appStore.setVisibleBossesNone();
+    appStore.setVisibleNpcsNone();
   };
 
   return (
