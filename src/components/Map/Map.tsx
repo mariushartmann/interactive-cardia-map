@@ -41,7 +41,7 @@ export const Map = () => {
     let content = <></>;
     if (currentTooltipData.ids.length > 1)
       content = (
-        <ul>
+        <ul style={{ padding: 0, margin: 0 }}>
           {currentTooltipData.ids.map((x) => {
             return (
               <span key={x} style={{ display: "flex", alignItems: "center" }}>
@@ -218,7 +218,7 @@ export const Map = () => {
         style={{
           position: "absolute",
           display: "none",
-          padding: "6px 12px",
+          padding: "12px 18px",
           borderRadius: 6,
           backgroundColor: "#fff",
           borderWidth: 1,
