@@ -17,6 +17,7 @@ export const bossIcons: { [key in BossIdentifier]: string } = {
   giant_kravog: "/icons/monsters/bosses/Giant Kravog.png",
   giant_minotaurus: "/icons/monsters/bosses/Giant Minotaurus.png",
   giant_snow_dragon: "/icons/monsters/bosses/Giant Snow Dragon.png",
+  giant_white_dragon: "/icons/monsters/bosses/Giant White Dragon.png",
   island_death: "/icons/monsters/bosses/Island Death.png",
   river_mutant: "/icons/monsters/bosses/River Mutant.png",
   snow_deamon: "/icons/monsters/bosses/Snow Demon.png",
@@ -171,5 +172,12 @@ export const bosses: Data = [
     itemType: "boss",
     locationType: "point",
     data: "955,580",
+  },
+  {
+    ids: ["giant_white_dragon"],
+    color: "#ffffff",
+    itemType: "boss",
+    locationType: "point",
+    data: "675,440",
   },
 ];

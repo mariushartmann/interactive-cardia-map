@@ -1,5 +1,5 @@
 import { ores, items, bosses, npcs } from "../../data";
-import { useCallback, useState } from "react";
+import { MouseEvent, useCallback, useMemo, useRef, useState } from "react";
 import { useAppStore } from "../../store/appStore";
 import {
   BossIdentifier,
@@ -12,14 +12,57 @@ import { Button, Modal, ModalClose, ModalDialog, Typography } from "@mui/joy";
 import { useTranslation } from "react-i18next";
 import { DrawerFilters } from "../Filter/Filter";
 import FilterIcon from "@mui/icons-material/Tune";
+import ReactDomServer from "react-dom/server";
 
 export const Map = () => {
   const { t } = useTranslation();
+  const tooltipRef = useRef<HTMLDivElement>(null);
   const [showFilters, setShowFilters] = useState(false);
   const { visibleOres, visibleItems, visibleBosses, visibleNpcs } =
     useAppStore();
   const [modalData, setModalData] = useState<DataItem>(ores[0]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [currentTooltipData, setCurrentTooltipData] = useState<DataItem>(
+    ores[0]
+  );
+
+  const tooltipContent = useMemo(() => {
+    let content = <></>;
+    if (currentTooltipData.ids.length > 1)
+      content = (
+        <ul>
+          {currentTooltipData.ids.map((x) => (
+            <li>{t(`${currentTooltipData.itemType}.${x}`)}</li>
+          ))}
+        </ul>
+      );
+    else
+      content = (
+        <span>
+          {t(`${currentTooltipData.itemType}.${currentTooltipData.ids[0]}`)}
+        </span>
+      );
+
+    return ReactDomServer.renderToStaticMarkup(content);
+  }, [currentTooltipData.ids, currentTooltipData.itemType, t]);
+
+  const showTooltip = useCallback(
+    (e: MouseEvent<SVGElement, globalThis.MouseEvent>, data: DataItem) => {
+      if (!tooltipRef.current) return;
+
+      setCurrentTooltipData(data);
+      tooltipRef.current.style.display = "block";
+      tooltipRef.current.style.left = e.pageX + 10 + "px";
+      tooltipRef.current.style.top = e.pageY + 10 + "px";
+    },
+    []
+  );
+
+  const hideTooltip = useCallback(() => {
+    if (!tooltipRef.current) return;
+
+    tooltipRef.current.style.display = "none";
+  }, []);
 
   const renderOres = useCallback(() => {
     const renderedOres = ores.filter((o) =>
@@ -41,11 +84,13 @@ export const Map = () => {
               setModalData(ore);
               setModalOpen(true);
             }}
+            onMouseMove={(e) => showTooltip(e, ore)}
+            onMouseOut={(e) => hideTooltip()}
             style={{ cursor: "pointer" }}
           />
         );
       });
-  }, [visibleOres]);
+  }, [hideTooltip, showTooltip, visibleOres]);
 
   const renderItems = useCallback(() => {
     const renderedItems = items.filter((i) =>
@@ -68,11 +113,13 @@ export const Map = () => {
               setModalData(item);
               setModalOpen(true);
             }}
+            onMouseMove={(e) => showTooltip(e, item)}
+            onMouseOut={(e) => hideTooltip()}
             style={{ cursor: "pointer" }}
           />
         );
       });
-  }, [visibleItems]);
+  }, [hideTooltip, showTooltip, visibleItems]);
 
   const renderBosses = useCallback(() => {
     const renderedBosses = bosses.filter((b) =>
@@ -95,11 +142,13 @@ export const Map = () => {
               setModalData(boss);
               setModalOpen(true);
             }}
+            onMouseMove={(e) => showTooltip(e, boss)}
+            onMouseOut={(e) => hideTooltip()}
             style={{ cursor: "pointer" }}
           />
         );
       });
-  }, [visibleBosses]);
+  }, [hideTooltip, showTooltip, visibleBosses]);
 
   const renderNpcs = useCallback(() => {
     const renderedNpcs = npcs.filter((n) =>
@@ -122,11 +171,13 @@ export const Map = () => {
               setModalData(npc);
               setModalOpen(true);
             }}
+            onMouseMove={(e) => showTooltip(e, npc)}
+            onMouseOut={(e) => hideTooltip()}
             style={{ cursor: "pointer" }}
           />
         );
       });
-  }, [visibleNpcs]);
+  }, [hideTooltip, showTooltip, visibleNpcs]);
 
   return (
     <>
@@ -144,6 +195,17 @@ export const Map = () => {
         {renderBosses()}
         {renderNpcs()}
       </svg>
+      <div
+        ref={tooltipRef}
+        dangerouslySetInnerHTML={{ __html: tooltipContent }}
+        style={{
+          position: "absolute",
+          display: "none",
+          padding: "6px 12px",
+          borderRadius: 6,
+          backgroundColor: "#fff",
+        }}
+      ></div>
       <Button
         variant="outlined"
         color="neutral"

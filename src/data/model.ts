@@ -105,6 +105,7 @@ export const bossIdentifier = [
   "giant_kravog",
   "giant_minotaurus",
   "giant_snow_dragon",
+  "giant_white_dragon",
   "island_death",
   "river_mutant",
   "snow_deamon",
