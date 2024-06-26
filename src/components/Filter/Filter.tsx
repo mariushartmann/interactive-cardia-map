@@ -74,7 +74,7 @@ export const DrawerFilters = ({ open, onChange }: IDrawerFiltersProps) => {
         <DialogContent sx={{ gap: 2 }}>
           <Tabs
             aria-label="tabs"
-            defaultValue={0}
+            defaultValue={1}
             sx={{ bgcolor: "transparent" }}
           >
             <TabList
@@ -93,7 +93,9 @@ export const DrawerFilters = ({ open, onChange }: IDrawerFiltersProps) => {
               <Tab disableIndicator>Objectives</Tab>
               <Tab disableIndicator>Details</Tab>
             </TabList>
-            <TabPanel value={0}>Panel 1</TabPanel>
+            <TabPanel value={0}>
+              Coming soon. Until then please use the 'Details' tab.
+            </TabPanel>
             <TabPanel value={1}>
               <DrawerFiltersTabDetails />
             </TabPanel>

@@ -13,6 +13,17 @@ import { useTranslation } from "react-i18next";
 import { DrawerFilters } from "../Filter/Filter";
 import FilterIcon from "@mui/icons-material/Tune";
 import ReactDomServer from "react-dom/server";
+import OreIcon from "@mui/icons-material/Hardware";
+import ItemIcon from "@mui/icons-material/Inventory";
+import BossIcon from "@mui/icons-material/ReportGmailerrorred";
+import NpcIcon from "@mui/icons-material/Person";
+
+const tooltipIcons = {
+  ore: <OreIcon />,
+  item: <ItemIcon />,
+  boss: <BossIcon />,
+  npc: <NpcIcon />,
+};
 
 export const Map = () => {
   const { t } = useTranslation();
@@ -31,14 +42,20 @@ export const Map = () => {
     if (currentTooltipData.ids.length > 1)
       content = (
         <ul>
-          {currentTooltipData.ids.map((x) => (
-            <li>{t(`${currentTooltipData.itemType}.${x}`)}</li>
-          ))}
+          {currentTooltipData.ids.map((x) => {
+            return (
+              <span key={x} style={{ display: "flex", alignItems: "center" }}>
+                {(tooltipIcons as any)[currentTooltipData.itemType]}{" "}
+                {t(`${currentTooltipData.itemType}.${x}`)}
+              </span>
+            );
+          })}
         </ul>
       );
     else
       content = (
-        <span>
+        <span style={{ display: "flex", alignItems: "center" }}>
+          {(tooltipIcons as any)[currentTooltipData.itemType]}{" "}
           {t(`${currentTooltipData.itemType}.${currentTooltipData.ids[0]}`)}
         </span>
       );
@@ -204,6 +221,11 @@ export const Map = () => {
           padding: "6px 12px",
           borderRadius: 6,
           backgroundColor: "#fff",
+          borderWidth: 1,
+          borderColor:
+            "var(--variant-outlinedBorder, var(--joy-palette-neutral-outlinedBorder, var(--joy-palette-neutral-300, #CDD7E1)))",
+          boxShadow:
+            "var(--joy-shadowRing, 0 0 #000),0px 1px 5px -1px rgba(var(--joy-shadowChannel, 21 21 21) / var(--joy-shadowOpacity, 0.3))",
         }}
       ></div>
       <Button

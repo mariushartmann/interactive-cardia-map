@@ -10,7 +10,7 @@ import {
   oreIdentifier,
 } from "../data/model";
 
-type AppStore = {
+export type AppStore = {
   visibleOres: OreIdentifier[];
   setVisibleOres: (value: OreIdentifier[]) => void;
   setVisibleOresAll: () => void;

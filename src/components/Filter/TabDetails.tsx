@@ -1,14 +1,16 @@
 import { useTranslation } from "react-i18next";
-import { useAppStore } from "../../store/appStore";
-import { useCallback } from "react";
+import { AppStore, useAppStore } from "../../store/appStore";
+import { useCallback, useMemo, useState } from "react";
 import Box from "@mui/joy/Box";
 import Button from "@mui/joy/Button";
 import Checkbox from "@mui/joy/Checkbox";
 import Stack from "@mui/joy/Stack";
 import Tooltip from "@mui/joy/Tooltip";
+import SearchIcon from "@mui/icons-material/Search";
 import {
   AllIdentifier,
   BossIdentifier,
+  Data,
   DataType,
   ItemIdentifier,
   NpcIdentifier,
@@ -32,15 +34,44 @@ import {
   AccordionDetails,
   AccordionGroup,
   AccordionSummary,
+  Input,
   List,
   ListItem,
 } from "@mui/joy";
+
+const iconData = {
+  ore: oreIcons,
+  item: itemIcons,
+  boss: bossIcons,
+  npc: {},
+};
+
+const storeKeys = {
+  ore: "visibleOres",
+  item: "visibleItems",
+  boss: "visibleBosses",
+  npc: "visibleNpcs",
+} as { [key: string]: keyof AppStore };
 
 type IDrawerFiltersTabDetailsProps = {};
 
 export const DrawerFiltersTabDetails = ({}: IDrawerFiltersTabDetailsProps) => {
   const { t } = useTranslation();
   const appStore = useAppStore();
+  const [search, setSearch] = useState("");
+  const visibleObjects = useMemo(() => {
+    return [
+      ...appStore.visibleOres,
+      ...appStore.visibleItems,
+      ...appStore.visibleBosses,
+      ...appStore.visibleNpcs,
+    ] as AllIdentifier[];
+  }, [
+    appStore.visibleBosses,
+    appStore.visibleItems,
+    appStore.visibleNpcs,
+    appStore.visibleOres,
+  ]);
 
   const updateVisibility = useCallback(
     (type: DataType, id: AllIdentifier, value: boolean) => {
@@ -347,56 +378,181 @@ export const DrawerFiltersTabDetails = ({}: IDrawerFiltersTabDetailsProps) => {
     },
     []
   );
+
+  const renderAsAccordion = useCallback(() => {
+    return (
+      <AccordionGroup>
+        <Accordion>
+          <AccordionSummary>Ores</AccordionSummary>
+          <AccordionDetails>
+            <Box sx={{ display: "flex", gap: 1, mb: 1 }}>
+              {renderVisibilityButtons(
+                appStore.setVisibleOresAll,
+                appStore.setVisibleOresNone
+              )}
+            </Box>
+            {renderOres()}
+          </AccordionDetails>
+        </Accordion>
+        <Accordion>
+          <AccordionSummary>Items</AccordionSummary>
+          <AccordionDetails>
+            <Box sx={{ display: "flex", gap: 1, mb: 1 }}>
+              {renderVisibilityButtons(
+                appStore.setVisibleItemsAll,
+                appStore.setVisibleItemsNone
+              )}
+            </Box>
+            {renderItems()}
+          </AccordionDetails>
+        </Accordion>
+        <Accordion>
+          <AccordionSummary>Bosses</AccordionSummary>
+          <AccordionDetails>
+            <Box sx={{ display: "flex", gap: 1, mb: 1 }}>
+              {renderVisibilityButtons(
+                appStore.setVisibleBossesAll,
+                appStore.setVisibleBossesNone
+              )}
+            </Box>
+            {renderBosses()}
+          </AccordionDetails>
+        </Accordion>
+        <Accordion>
+          <AccordionSummary>NPCs</AccordionSummary>
+          <AccordionDetails>
+            <Box sx={{ display: "flex", gap: 1, mb: 1 }}>
+              {renderVisibilityButtons(
+                appStore.setVisibleNpcsAll,
+                appStore.setVisibleNpcsNone
+              )}
+            </Box>
+            {renderNpcs()}
+          </AccordionDetails>
+        </Accordion>
+      </AccordionGroup>
+    );
+  }, [
+    appStore.setVisibleBossesAll,
+    appStore.setVisibleBossesNone,
+    appStore.setVisibleItemsAll,
+    appStore.setVisibleItemsNone,
+    appStore.setVisibleNpcsAll,
+    appStore.setVisibleNpcsNone,
+    appStore.setVisibleOresAll,
+    appStore.setVisibleOresNone,
+    renderBosses,
+    renderItems,
+    renderNpcs,
+    renderOres,
+    renderVisibilityButtons,
+  ]);
+
+  const renderSearchResults = useCallback(() => {
+    const filter = (
+      ids: AllIdentifier[],
+      data: Data,
+      translationKey: string
+    ) => {
+      const filteresIds = ids.filter(
+        (x) =>
+          t(`${translationKey}.${x}`)
+            .toLowerCase()
+            .indexOf(search.toLowerCase()) !== -1
+      );
+      return filteresIds.map((id) => ({
+        key: id,
+        data: data.find((x) => x.ids.includes(id)),
+      }));
+    };
+    const oreData = filter(oreIdentifier as any, ores, "ore");
+    const itemData = filter(itemIdentifier as any, items, "item");
+    const bossData = filter(bossIdentifier as any, bosses, "boss");
+    const npcData = filter(npcIdentifier as any, npcs, "npc");
+
+    const checkboxArr = [...oreData, ...itemData, ...bossData, ...npcData].sort(
+      (a, b) => (a.key < b.key ? -1 : 1)
+    );
+
+    return (
+      <Box sx={{ display: "flex", flexDirection: "column" }}>
+        {checkboxArr.map((item) => {
+          if (!item.data) return null;
+          const iconSet = iconData[item.data.itemType as keyof typeof iconData];
+          const foundIcon =
+            item.key in iconSet
+              ? process.env.PUBLIC_URL +
+                iconSet[item.key as keyof typeof iconSet]
+              : undefined;
+          const isVisible = visibleObjects.indexOf(item.key) !== -1;
+          const data = items.find((x) => x.ids.includes(item.key));
+
+          const checkbox = (
+            <ListItem
+              key={item.key}
+              variant={data?.data !== null && isVisible ? "soft" : "plain"}
+              color="primary"
+              onClick={() =>
+                updateVisibility(item.data!.itemType, item.key, !isVisible)
+              }
+              sx={{ display: "flex", py: 0.25, mb: 0.25, gap: 2 }}
+            >
+              <Checkbox
+                overlay
+                label={t(`${item.data!.itemType}.${item.key}`)}
+                checked={data?.data !== null && isVisible}
+                readOnly
+                disabled={data?.data === null}
+                variant="outlined"
+              />
+              {foundIcon && (
+                <Box
+                  sx={{
+                    ml: "auto",
+                    height: 24,
+                    width: 24,
+                  }}
+                >
+                  <img
+                    src={foundIcon}
+                    alt={item.key}
+                    height="100%"
+                    width="100%"
+                  />
+                </Box>
+              )}
+            </ListItem>
+          );
+
+          return data?.data === null ? (
+            <Tooltip
+              key={item.key}
+              title="Found in Cardia Cave"
+              color="warning"
+              variant="soft"
+            >
+              {checkbox}
+            </Tooltip>
+          ) : (
+            checkbox
+          );
+        })}
+      </Box>
+    );
+  }, [search, t, updateVisibility, visibleObjects]);
+
   return (
-    <AccordionGroup>
-      <Accordion>
-        <AccordionSummary>Ores</AccordionSummary>
-        <AccordionDetails>
-          <Box sx={{ display: "flex", gap: 1, mb: 1 }}>
-            {renderVisibilityButtons(
-              appStore.setVisibleOresAll,
-              appStore.setVisibleOresNone
-            )}
-          </Box>
-          {renderOres()}
-        </AccordionDetails>
-      </Accordion>
-      <Accordion>
-        <AccordionSummary>Items</AccordionSummary>
-        <AccordionDetails>
-          <Box sx={{ display: "flex", gap: 1, mb: 1 }}>
-            {renderVisibilityButtons(
-              appStore.setVisibleItemsAll,
-              appStore.setVisibleItemsNone
-            )}
-          </Box>
-          {renderItems()}
-        </AccordionDetails>
-      </Accordion>
-      <Accordion>
-        <AccordionSummary>Bosses</AccordionSummary>
-        <AccordionDetails>
-          <Box sx={{ display: "flex", gap: 1, mb: 1 }}>
-            {renderVisibilityButtons(
-              appStore.setVisibleBossesAll,
-              appStore.setVisibleBossesNone
-            )}
-          </Box>
-          {renderBosses()}
-        </AccordionDetails>
-      </Accordion>
-      <Accordion>
-        <AccordionSummary>NPCs</AccordionSummary>
-        <AccordionDetails>
-          <Box sx={{ display: "flex", gap: 1, mb: 1 }}>
-            {renderVisibilityButtons(
-              appStore.setVisibleNpcsAll,
-              appStore.setVisibleNpcsNone
-            )}
-          </Box>
-          {renderNpcs()}
-        </AccordionDetails>
-      </Accordion>
-    </AccordionGroup>
+    <>
+      <Input
+        startDecorator={<SearchIcon />}
+        placeholder="Search…"
+        variant="soft"
+        sx={{ mb: 1 }}
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+      {(!search || search.length < 1) && renderAsAccordion()}
+      {(search || search.length > 0) && renderSearchResults()}
+    </>
   );
 };
