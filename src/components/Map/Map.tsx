@@ -3,7 +3,7 @@ import { MouseEvent, useCallback, useMemo, useRef, useState } from "react";
 import { useAppStore } from "../../store/appStore";
 import {
   BossIdentifier,
-  DataItem,
+  DetailDataItem,
   ItemIdentifier,
   NpcIdentifier,
   OreIdentifier,
@@ -31,9 +31,9 @@ export const Map = () => {
   const [showFilters, setShowFilters] = useState(false);
   const { visibleOres, visibleItems, visibleBosses, visibleNpcs } =
     useAppStore();
-  const [modalData, setModalData] = useState<DataItem>(ores[0]);
+  const [modalData, setModalData] = useState<DetailDataItem>(ores[0]);
   const [modalOpen, setModalOpen] = useState(false);
-  const [currentTooltipData, setCurrentTooltipData] = useState<DataItem>(
+  const [currentTooltipData, setCurrentTooltipData] = useState<DetailDataItem>(
     ores[0]
   );
 
@@ -64,7 +64,10 @@ export const Map = () => {
   }, [currentTooltipData.ids, currentTooltipData.itemType, t]);
 
   const showTooltip = useCallback(
-    (e: MouseEvent<SVGElement, globalThis.MouseEvent>, data: DataItem) => {
+    (
+      e: MouseEvent<SVGElement, globalThis.MouseEvent>,
+      data: DetailDataItem
+    ) => {
       if (!tooltipRef.current) return;
 
       setCurrentTooltipData(data);

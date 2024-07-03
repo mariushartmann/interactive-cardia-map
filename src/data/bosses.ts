@@ -1,4 +1,4 @@
-import type { BossIdentifier, Data } from "./model";
+import type { BossIdentifier, DetailData } from "./model";
 
 export const bossIcons: { [key in BossIdentifier]: string } = {
   abandoned_mutant: "/icons/monsters/bosses/Abandoned Mutant.png",
@@ -25,7 +25,7 @@ export const bossIcons: { [key in BossIdentifier]: string } = {
   winfred: "/icons/monsters/bosses/Winfred.png",
 };
 
-export const bosses: Data = [
+export const bosses: DetailData = [
   {
     ids: ["giant_fire_mage"],
     color: "#ffffff",

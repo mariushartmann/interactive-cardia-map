@@ -23,8 +23,8 @@ import {
   itemIdentifier,
   OreIdentifier,
   oreIdentifier,
-  AllIdentifier,
-  DataType,
+  AllDetailsIdentifier,
+  DetailDataType,
 } from "../../data/model";
 import { ores, items, bosses } from "../../data";
 
@@ -45,8 +45,8 @@ export const TabMenu = () => {
   };
 
   const updateVisibility = useCallback(
-    (type: DataType, id: AllIdentifier, value: boolean) => {
-      let store: AllIdentifier[] = appStore.visibleOres;
+    (type: DetailDataType, id: AllDetailsIdentifier, value: boolean) => {
+      let store: AllDetailsIdentifier[] = appStore.visibleOres;
       let func: (value: any[]) => void = appStore.setVisibleOres;
 
       switch (type) {

@@ -8,10 +8,10 @@ import Stack from "@mui/joy/Stack";
 import Tooltip from "@mui/joy/Tooltip";
 import SearchIcon from "@mui/icons-material/Search";
 import {
-  AllIdentifier,
+  AllDetailsIdentifier,
   BossIdentifier,
-  Data,
-  DataType,
+  DetailData,
+  DetailDataType,
   ItemIdentifier,
   NpcIdentifier,
   OreIdentifier,
@@ -65,7 +65,7 @@ export const DrawerFiltersTabDetails = ({}: IDrawerFiltersTabDetailsProps) => {
       ...appStore.visibleItems,
       ...appStore.visibleBosses,
       ...appStore.visibleNpcs,
-    ] as AllIdentifier[];
+    ] as AllDetailsIdentifier[];
   }, [
     appStore.visibleBosses,
     appStore.visibleItems,
@@ -74,8 +74,8 @@ export const DrawerFiltersTabDetails = ({}: IDrawerFiltersTabDetailsProps) => {
   ]);
 
   const updateVisibility = useCallback(
-    (type: DataType, id: AllIdentifier, value: boolean) => {
-      let store: AllIdentifier[] = appStore.visibleOres;
+    (type: DetailDataType, id: AllDetailsIdentifier, value: boolean) => {
+      let store: AllDetailsIdentifier[] = appStore.visibleOres;
       let func: (value: any[]) => void = appStore.setVisibleOres;
 
       switch (type) {
@@ -450,8 +450,8 @@ export const DrawerFiltersTabDetails = ({}: IDrawerFiltersTabDetailsProps) => {
 
   const renderSearchResults = useCallback(() => {
     const filter = (
-      ids: AllIdentifier[],
-      data: Data,
+      ids: AllDetailsIdentifier[],
+      data: DetailData,
       translationKey: string
     ) => {
       const filteresIds = ids.filter(

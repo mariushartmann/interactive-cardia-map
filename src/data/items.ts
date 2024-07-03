@@ -1,4 +1,4 @@
-import type { Data, ItemIdentifier } from "./model";
+import type { DetailData, ItemIdentifier } from "./model";
 
 export const itemIcons: { [key in ItemIdentifier]: string } = {
   adventure_notice: "/icons/items/Adventure Notice.png",
@@ -27,7 +27,7 @@ export const itemIcons: { [key in ItemIdentifier]: string } = {
   weapon_of_the_gods: "/icons/items/Weapon of the Gods.png",
 };
 
-export const items: Data = [
+export const items: DetailData = [
   {
     ids: ["letter_of_a_soldier"],
     color: "#ffffff",

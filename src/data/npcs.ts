@@ -1,6 +1,6 @@
-import type { Data } from "./model";
+import type { DetailData } from "./model";
 
-export const npcs: Data = [
+export const npcs: DetailData = [
   {
     ids: ["aldwin"],
     color: "#ffffff",

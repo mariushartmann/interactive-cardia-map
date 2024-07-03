@@ -1,14 +1,13 @@
-export type Data = DataItem[];
-
-export type DataItem = {
-  ids: AllIdentifier[];
+export type DetailData = DetailDataItem[];
+export type DetailDataItem = {
+  ids: AllDetailsIdentifier[];
   color: string;
-  itemType: DataType;
+  itemType: DetailDataType;
   locationType: LocationType;
   data: string | null;
 };
 
-export type DataType = "plant" | "ore" | "item" | "boss" | "npc";
+export type DetailDataType = "plant" | "ore" | "item" | "boss" | "npc";
 type LocationType = "point" | "area";
 
 export const oreIdentifier = [
@@ -128,11 +127,31 @@ export const npcIdentifier = [
 ] as const;
 export type NpcIdentifier = (typeof npcIdentifier)[number];
 
-export const allIdentifier = [
+export const allDetailsIdentifier = [
   ...oreIdentifier,
   ...plantIdentifier,
   ...itemIdentifier,
   ...bossIdentifier,
   ...npcIdentifier,
 ] as const;
-export type AllIdentifier = (typeof allIdentifier)[number];
+export type AllDetailsIdentifier = (typeof allDetailsIdentifier)[number];
+
+export type ObjectiveData = ObjectiveDataItem[];
+export type ObjectiveDataItem = {
+  id: AllObjectivesIdentifier;
+  details: AllDetailsIdentifier[];
+};
+
+export const miningIdentifier = [
+  "mining_1",
+  "mining_2",
+  "mining_3",
+  "mining_4",
+  "mining_5",
+  "mining_6",
+  "mining_7",
+] as const;
+export type MiningIdentifier = (typeof miningIdentifier)[number];
+
+export const allObjectivesIdentifier = [...miningIdentifier] as const;
+export type AllObjectivesIdentifier = (typeof allObjectivesIdentifier)[number];

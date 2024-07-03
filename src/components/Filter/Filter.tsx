@@ -16,6 +16,7 @@ import {
 import { DrawerFiltersTabDetails } from "./TabDetails";
 import { useTranslation } from "react-i18next";
 import { useAppStore } from "../../store/appStore";
+import { DrawerFiltersTabObjective } from "./TabObjectives";
 
 type IDrawerFiltersProps = {
   open: boolean;
@@ -74,7 +75,7 @@ export const DrawerFilters = ({ open, onChange }: IDrawerFiltersProps) => {
         <DialogContent sx={{ gap: 2 }}>
           <Tabs
             aria-label="tabs"
-            defaultValue={1}
+            defaultValue={0}
             sx={{ bgcolor: "transparent" }}
           >
             <TabList
@@ -94,7 +95,7 @@ export const DrawerFilters = ({ open, onChange }: IDrawerFiltersProps) => {
               <Tab disableIndicator>Details</Tab>
             </TabList>
             <TabPanel value={0}>
-              Coming soon. Until then please use the 'Details' tab.
+              <DrawerFiltersTabObjective />
             </TabPanel>
             <TabPanel value={1}>
               <DrawerFiltersTabDetails />

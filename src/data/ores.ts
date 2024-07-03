@@ -1,4 +1,4 @@
-import type { Data, OreIdentifier } from "./model";
+import type { DetailData, OreIdentifier } from "./model";
 
 export const oreIcons: { [key in OreIdentifier]: string } = {
   adamantite: "/icons/ores/OreAdamantite.png",
@@ -29,7 +29,7 @@ export const oreIcons: { [key in OreIdentifier]: string } = {
   thunderboltstone: "/icons/ores/OreThunderBoltStone.png",
 };
 
-export const ores: Data = [
+export const ores: DetailData = [
   {
     ids: ["spiritstone"],
     color: "#3cb6bc",
